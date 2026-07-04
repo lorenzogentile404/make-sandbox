@@ -22,6 +22,7 @@ include ../utils/Makefile
 
 # run target runs the echo_my_timestamp.sh script, which is generated if it does not exist or it is not up to date with respect to its dependencies (log.txt)
 # $< indicates the first dependency
+# Note that a dependency can be also another PHONY target
 run: echo_my_timestamp.sh ## Run echo_my_timestamp.sh
 	@echo "Invoking run at TIMESTAMP=$(TIMESTAMP)"
 	@bash ./$<
