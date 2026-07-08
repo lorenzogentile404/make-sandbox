@@ -1,6 +1,6 @@
 # Makefile Sandbox
 
-A simple demonstration of GNU Make dependencies, incremental builds, inclusion of Makefiles, macros, and self-documentation etc.
+A simple demonstration of GNU Make dependencies, incremental builds (based on timestamps), inclusion of external Makefiles, macros, and self-documentating Makefiles etc.
 
 ## Quick start
 ```bash

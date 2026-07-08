@@ -7,8 +7,8 @@ TIMESTAMP     := $(shell date +%d-%m-%Y_%H-%M-%S)
 # If targets from other Makefiles are included first, explicit definition of the default target is required to avoid ambiguity
 .DEFAULT_GOAL := help
 
-# Mark targets that do not represent files as .PHONY
-.PHONY: help run append-timestamp-to-log clean
+# Targets that do not represent files as .PHONY
+.PHONY: help run append-timestamp-to-log clean confirm-clean
 
 # help target displays a help menu with self-documented targets
 help: ## Display this help menu with all documented targets
@@ -22,7 +22,6 @@ include ../utils/Makefile
 
 # run target runs the echo_my_timestamp.sh script, which is generated if it does not exist or it is not up to date with respect to its dependencies (log.txt)
 # $< indicates the first dependency
-# Note that a dependency can be also another PHONY target
 run: echo_my_timestamp.sh ## Run echo_my_timestamp.sh
 	@echo "Invoking run at TIMESTAMP=$(TIMESTAMP)"
 	@bash ./$<
@@ -42,6 +41,14 @@ append-timestamp-to-log: ## Append TIMESTAMP to log.txt
 	@echo "Invoking append-timestamp-to-log at TIMESTAMP=$(TIMESTAMP)"
 	@echo "TIMESTAMP=$(TIMESTAMP)" >> log.txt
 
-# clean_body macro is defined in ../utils/Makefile
-clean: ## Clean generated files
-	$(call clean_body, echo_my_timestamp.sh log.txt)
+# clean-body macro is defined in ../utils/Makefile
+clean: confirm-clean ## Clean generated files
+	$(call clean-body, echo_my_timestamp.sh log.txt)
+
+# Example of dependency between PHONY targets
+confirm-clean:  ## Ask for confirmation before cleaning generated files
+	@printf "\033[33mAre you sure you want to proceed with clean? [y/N]:\033[0m " && read ans; \
+	if [ "$$ans" != "y" ] && [ "$$ans" != "Y" ]; then \
+		echo "Operation aborted."; \
+		exit 1; \
+	fi
