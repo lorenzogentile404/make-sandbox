@@ -11,11 +11,10 @@ make help
 ```mermaid
 graph LR
     %% Elements using stadium shapes for max readability
-    help([help])
-    append([append-timestamp-to-log])
-    
+    help([help])   
     run([run]) ---> echo([echo_my_timestamp.sh])
     echo ---> log([log.txt])
+    append([append-timestamp-to-log])
     clean([clean]) ---> confirm([confirm-clean])
 
     classDef phony fill:transparent,stroke:#d73a49,stroke-width:2px;
