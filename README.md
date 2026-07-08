@@ -9,13 +9,6 @@ make help
 
 ## Demo
 ```bash
-~/make-sandbox/basics [main]% make help
-Usage: make [target]
-
-Available targets:
-  help                      Display this help menu with all documented targets
-  [...]
-
 # First run generates log.txt, echo_my_timestamp.sh
 ~/make-sandbox/basics [main]% make run
 Invoking log.txt at TIMESTAMP=08-07-2026_14-51-44
