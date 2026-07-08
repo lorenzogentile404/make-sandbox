@@ -7,6 +7,24 @@ A simple demonstration of GNU Make dependencies, incremental builds (based on ti
 make help
 ```
 
+## Graph of dependencies
+```mermaid
+graph LR
+    %% Elements using stadium shapes for max readability
+    help([help])
+    append([append-timestamp-to-log])
+    
+    run([run]) ---> echo([echo_my_timestamp.sh])
+    echo ---> log([log.txt])
+    clean([clean]) ---> confirm([confirm-clean])
+
+    classDef phony fill:transparent,stroke:#d73a49,stroke-width:2px;
+    classDef file fill:transparent,stroke:#0366d6,stroke-width:2px;
+
+    class help,run,append,clean,confirm phony;
+    class echo,log file;
+```
+
 ## Demo
 ```bash
 # First run generates log.txt, echo_my_timestamp.sh
