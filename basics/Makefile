@@ -23,22 +23,22 @@ include ../utils/Makefile
 # run target runs the echo_my_timestamp.sh script, which is generated if it does not exist or it is not up to date with respect to its dependencies (log.txt)
 # $< indicates the first dependency
 run: echo_my_timestamp.sh ## Run echo_my_timestamp.sh
-	@echo "Invoking run at TIMESTAMP=$(TIMESTAMP)"
+	@echo "Invoking \033[31mrun\033[0m at TIMESTAMP=$(TIMESTAMP)"
 	@bash ./$<
 
 # echo_my_timestamp.sh target is generated only if it does not exist or it is not up to date with respect to its dependencies (log.txt)
 # $@ indicates the target name
 echo_my_timestamp.sh: log.txt ## Generates echo_my_timestamp.sh, which prints its own timestamp when executed
-	@echo "Invoking echo_my_timestamp.sh at TIMESTAMP=$(TIMESTAMP)"
+	@echo "Invoking \033[31mecho_my_timestamp.sh\033[0m at TIMESTAMP=$(TIMESTAMP)"
 	@echo "echo My timestamp is TIMESTAMP=$(TIMESTAMP)" > $@
 
 log.txt: ## Generates log.txt if it does not exist
-	@echo "Invoking log.txt at TIMESTAMP=$(TIMESTAMP)"
+	@echo "Invoking \033[31mlog.txt\033[0m at TIMESTAMP=$(TIMESTAMP)"
 	@touch $@
 
 # append-timestamp-to-logs makes echo_my_timestamp.sh target out of date, so it will be re-generated next time run is invoked
 append-timestamp-to-log: ## Append TIMESTAMP to log.txt
-	@echo "Invoking append-timestamp-to-log at TIMESTAMP=$(TIMESTAMP)"
+	@echo "Invoking \033[31mappend-timestamp-to-log\033[0m at TIMESTAMP=$(TIMESTAMP)"
 	@echo "TIMESTAMP=$(TIMESTAMP)" >> log.txt
 
 # clean-body macro is defined in ../utils/Makefile
