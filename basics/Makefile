@@ -23,22 +23,22 @@ include ../utils/Makefile
 # run target runs the echo_my_timestamp.sh script, which is generated if it does not exist or it is not up to date with respect to its dependencies (log.txt)
 # $< indicates the first dependency
 run: echo_my_timestamp.sh ## Run echo_my_timestamp.sh
-	@echo "Invoking \033[31mrun\033[0m at TIMESTAMP=$(TIMESTAMP)"
+	@echo "Invoking $(call red,run) at TIMESTAMP=$(TIMESTAMP)"
 	@bash ./$<
 
 # echo_my_timestamp.sh target is generated only if it does not exist or it is not up to date with respect to its dependencies (log.txt)
 # $@ indicates the target name
 echo_my_timestamp.sh: log.txt ## Generates echo_my_timestamp.sh, which prints its own timestamp when executed
-	@echo "Invoking \033[31mecho_my_timestamp.sh\033[0m at TIMESTAMP=$(TIMESTAMP)"
+	@echo "Invoking $(call red,echo_my_timestamp.sh) at TIMESTAMP=$(TIMESTAMP)"
 	@echo "echo My timestamp is TIMESTAMP=$(TIMESTAMP)" > $@
 
 log.txt: ## Generates log.txt if it does not exist
-	@echo "Invoking \033[31mlog.txt\033[0m at TIMESTAMP=$(TIMESTAMP)"
+	@echo "Invoking $(call red,log.txt) at TIMESTAMP=$(TIMESTAMP)"
 	@touch $@
 
 # append-timestamp-to-logs makes echo_my_timestamp.sh target out of date, so it will be re-generated next time run is invoked
 append-timestamp-to-log: ## Append TIMESTAMP to log.txt
-	@echo "Invoking \033[31mappend-timestamp-to-log\033[0m at TIMESTAMP=$(TIMESTAMP)"
+	@echo "Invoking $(call red,append-timestamp-to-log) at TIMESTAMP=$(TIMESTAMP)"
 	@echo "TIMESTAMP=$(TIMESTAMP)" >> log.txt
 
 # clean-body macro is defined in ../utils/Makefile
@@ -47,7 +47,7 @@ clean: confirm-clean ## Clean generated files
 
 # Example of dependency between PHONY targets
 confirm-clean:  ## Ask for confirmation before cleaning generated files
-	@printf "\033[33mAre you sure you want to proceed with clean? [y/N]:\033[0m " && read ans; \
+	@printf "$(call yellow,Are you sure you want to proceed with clean? [y/N]:) " && read ans; \
 	if [ "$$ans" != "y" ] && [ "$$ans" != "Y" ]; then \
 		echo "Operation aborted."; \
 		exit 1; \
